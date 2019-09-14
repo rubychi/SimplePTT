@@ -30,7 +30,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to session[:redirect_url], notice: '更新成功！'
+      redirect_to session[:redirect_url], notice: 'Successfully updated.'
     else
       render :edit
     end
@@ -38,7 +38,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    flash[:alert] = '成功刪除！'
+    flash[:alert] = 'Successfully deleted.'
     redirect_to request.referrer
   end
 
@@ -52,7 +52,7 @@ class PostsController < ApplicationController
     @group = Group.find(params[:group_id])
     @post = Post.find(params[:id])
     if current_user != @post.user && current_user != @group.user
-      redirect_to root_path, alert: '你沒有權限喔！'
+      redirect_to root_path, alert: 'You do not have permission.'
     end
   end
 end
