@@ -9,7 +9,7 @@
       <%= link_to('Edit', edit_group_post_path(@post.group, @post), class: "btn btn-default pull-right mt-20") %>
     <% end %>
     <h3 class="mb-35"><small>Poster: <%= @post.user.email %></small></h3>
-    <h2><%= @post.title %></h2>
+    <h3><%= @post.title %></h3>
     <hr />
     <p><%= sanitize @post.content %></p>
     <br />
