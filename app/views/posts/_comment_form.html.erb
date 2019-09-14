@@ -1,0 +1,16 @@
+<% if current_user %>
+  <%= simple_form_for :comment, url: "/groups/#{groupId}/posts/#{postId}/comments", method: "post" do |f| %>
+    <div class="form-inputs input-group mt-25">
+      <span class="input-group-addon">
+        <%= f.hidden_field :like, id: "thumbs-up-checkbox" %>
+        <i id="thumbs-up-btn" class="far fa-thumbs-up" role="button"></i>
+        <%= f.hidden_field :dislike, id: "thumbs-down-checkbox" %>
+        <i id="thumbs-down-btn" class="far fa-thumbs-down ml-10" role="button"></i>
+      </span>
+      <%= f.input :content, { label: false, placeholder: 'Comment' } %>
+      <span class="form-actions input-group-btn">
+        <%= f.submit "Submit", class: "btn btn-default", disabled: false %>
+      </span>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,19 @@
+<% if comments.size != 0 %>
+  <ul class="list-group mt-25">
+    <% comments.each do |comment| %>
+      <li class="list-group-item comment">
+        <% if comment.like %>
+          <i style="color: green" class="far fa-thumbs-up mr-10"></i>
+        <% elsif comment.dislike %>
+          <i style="color: red" class="far fa-thumbs-down mr-10"></i>
+        <% else %>
+          <i class="fas fa-long-arrow-alt-right mr-10"></i>
+        <% end %>
+        <%= comment.user.email %>: <%= comment.content %>
+        <span class="pull-right" style="color: gray"><small><%= comment.created_at.localtime.to_formatted_s(:db) %></small></span>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="mt-25 text-center">Be the first to leave a comment.</p>
+<% end %>

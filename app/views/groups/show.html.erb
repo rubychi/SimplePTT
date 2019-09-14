@@ -1,8 +1,9 @@
 <div class="col-md-12">
   <div class="group">
     <span class="pull-right">
+      <% @is_member = current_user && current_user.member_of?(@group) %>
       <% if false %>
-        <% if current_user && current_user.member_of?(@group) %>
+        <% if @is_member %>
           <label class="label label-success">Member</label>
         <% else %>
           <label class="label label-warning">Not a member</label>
@@ -10,7 +11,7 @@
       <% end %>
       <%= link_to("Post", new_group_post_path(@group), class: "btn btn-default")%>
       <% if false %>
-        <% if current_user && current_user.member_of?(@group) %>
+        <% if @is_member %>
           <%= link_to("Leave Board", leave_group_path(@group), method: :post, class: "btn btn-default") %>
         <% else %>
           <%= link_to("Join Board", join_group_path(@group), method: :post, class: "btn btn-default") %>
@@ -38,7 +39,16 @@
       <% @posts.each_with_index do |post, index| %>
         <tr>
           <td><%= index+1 %></td>
-          <td><%= link_to(post.title, group_post_path(post.group, post)) %></td>
+          <td>
+            <%= link_to(post.title, group_post_path(post.group, post)) %>
+            <% @num_of_comments = post.comments.size %>
+            <% if @num_of_comments != 0 %>
+              <span class="ml-10 num-of-comments">
+                <%= @num_of_comments %>
+                <i class="far fa-comment"></i>
+              </span>
+            <% end %>
+          </td>
           <td><%= render_post_content(post) %></td>
           <td><%= post.user.email %></td>
           <td><%= post.created_at.localtime.to_formatted_s(:db) %></td>

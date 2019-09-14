@@ -6,7 +6,9 @@ Rails.application.routes.draw do
       post :join
       post :leave
     end
-    resources :posts
+    resources :posts do
+      resources :comments
+    end
   end
 
   namespace :account do

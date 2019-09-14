@@ -12,6 +12,21 @@ require("jquery")
 
 import 'bootstrap/dist/js/bootstrap';
 
+$(document).on('ready turbolinks:load', function() {
+  $("#thumbs-up-btn").click(function() {
+    $("#thumbs-up-btn").toggleClass("green");
+    $("#thumbs-down-btn").removeClass("red");
+    $('#thumbs-up-checkbox').prop('value', !$('#thumbs-up-checkbox').prop('value'));
+    $('#thumbs-down-checkbox').prop('value', false);
+  });
+  $("#thumbs-down-btn").click(function() {
+    $("#thumbs-down-btn").toggleClass("red");
+    $("#thumbs-up-btn").removeClass("green");
+    $('#thumbs-down-checkbox').prop('value', !$('#thumbs-down-checkbox').prop('value'));
+    $('#thumbs-up-checkbox').prop('value', false);
+  });
+});
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
