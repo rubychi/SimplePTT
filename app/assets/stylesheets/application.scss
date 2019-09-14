@@ -33,7 +33,7 @@ $side-list: (
   l: 'left',
   r: 'right',
   y: 'y',
-  z: 'z',
+  x: 'x',
 );
 @while $i < 100 {
   @each $tk, $tv in $type-list {
@@ -41,7 +41,7 @@ $side-list: (
       .#{$tk}#{$sk}-#{$i} {
         @if $sk == 'y' {
           #{$tv}: #{$i}px 0;
-        } @else if $sk == 'z' {
+        } @else if $sk == 'x' {
           #{$tv}: 0 #{$i}px;
         } @else {
           #{$tv}-#{$sv}: #{$i}px;
