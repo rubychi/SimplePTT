@@ -1,0 +1,33 @@
+<div class="col-md-12">
+  <h2>My Boards</h2>
+  <br />
+  <table class="table">
+    <thead>
+      <tr>
+        <td>#</td>
+        <td>Board</td>
+        <td>Description</td>
+        <td>Total Posts</td>
+        <td>Created Time</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @groups.each_with_index do |group, index| %>
+        <tr>
+          <td><%= index+1 %></td>
+          <td><%= link_to(group.title, group_path(group)) %></td>
+          <td><%= render_group_description(group) %></td>
+          <td><%= group.posts.count %></td>
+          <td><%= group.created_at.localtime.to_formatted_s(:db) %></td>
+          <td>
+            <% if current_user && current_user == group.user %>
+              <%= link_to("Edit", edit_group_path(group), class: "btn btn-sm btn-default")%>
+              <%= link_to("Delete", group_path(group),    class: "btn btn-sm btn-default", 
+                          method: :delete, data: { confirm: "Are you sure?" } )%>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,67 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require trix
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/*
+ * Generate spacing styles
+ * usage: [property: margin|padding][side: top|bottom|left|right|y|z]-[size: 0-100]
+ * ex. mt-5 => margin-top: 5px, my-5 => margin: 5px 0, pb-5 => padding-bottom: 5px, pz-5 => padding: 0 5px
+ */
+$i: 0;
+$type-list: (
+  m: 'margin',
+  p: 'padding',
+);
+$side-list: (
+  t: 'top',
+  b: 'bottom',
+  l: 'left',
+  r: 'right',
+  y: 'y',
+  z: 'z',
+);
+@while $i < 100 {
+  @each $tk, $tv in $type-list {
+    @each $sk, $sv in $side-list {
+      .#{$tk}#{$sk}-#{$i} {
+        @if $sk == 'y' {
+          #{$tv}: #{$i}px 0;
+        } @else if $sk == 'z' {
+          #{$tv}: 0 #{$i}px;
+        } @else {
+          #{$tv}-#{$sv}: #{$i}px;
+        }
+      }
+    }
+  }
+  $i: $i + 5;
+}
+
+.content {
+  padding: 0 30px !important;
+
+  &--border {
+    border: 1px solid lightgray;
+  }
+}
+
+/* 3rd party library */
+// Hide the attachment button since the functionality has not yet been implemented
+.trix-button-group--file-tools {
+  display: none !important;
+}
