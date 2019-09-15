@@ -1,20 +1,19 @@
-<div class="col-md-12">
-  <div class="group">
-    <h2>Boards</h>
-    <%= link_to("Add Board", new_group_path, class: "btn btn-primary pull-right") %>
-  </div>
-  <br />
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <td>#</td>
-        <td>Board</td>
-        <td>Description</td>
-        <td>Creator</td>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render partial: 'group_item', collection: @groups, as: :group %>
-    </tbody>
-  </table>
+<div class="group">
+  <h2>Boards</h>
+  <%= link_to("Add Board", new_group_path, class: "btn btn-primary float-right") %>
 </div>
+<br />
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <td>#</td>
+      <td>Board</td>
+      <td>Description</td>
+      <td>Creator</td>
+      <td />
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'group_item', collection: @groups, as: :group %>
+  </tbody>
+</table>

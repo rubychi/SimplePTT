@@ -1,33 +1,35 @@
-<div class="col-md-12">
+<nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li><a href="/">Boards</a></li>
-    <li><%= link_to "Board #{@group.title}", "/groups/#{@group.id}" %></li>
-    <li class="active"><%= @post.title %></li>
+    <li class="breadcrumb-item"><a href="/">Boards</a></li>
+    <li class="breadcrumb-item"><%= link_to "Board #{@group.title}", "/groups/#{@group.id}" %></li>
+    <li class="breadcrumb-item active" aria-current="page"><%= @post.title %></li>
   </ol>
-  <div class="content content--border">
-    <span class="pull-right">
-      <% if current_user && current_user.member_of?(@group) %>
-        <%= link_to('Edit', edit_group_post_path(@post.group, @post), class: "btn btn-default mt-20") %>
+</nav>
+<div class="content content--border pb-0">
+  <span class="float-right">
+    <% if current_user && current_user.member_of?(@group) %>
+      <%= link_to('Edit', edit_group_post_path(@post.group, @post), class: "btn btn-outline-secondary mt-20") %>
+    <% end %>
+  </span>
+  <h5 class="mb-35">
+    <small class="text-muted">
+      Poster: <%= @post.user.email %>
+      <% @num_of_stars = @post.comments.num_of_likes(@post).size - @post.comments.num_of_dislikes(@post).size %>
+      <% if @num_of_stars > 0 %>
+        <span class="ml-10 helpful">
+          <i class="fas fa-star"></i>
+          <%= @num_of_stars %>
+        </span>
       <% end %>
-    </span>
-    <h3 class="mb-35">
-      <small>
-        Poster: <%= @post.user.email %>
-        <% @num_of_stars = @post.comments.num_of_likes(@post).size - @post.comments.num_of_dislikes(@post).size %>
-        <% if @num_of_stars > 0 %>
-          <span class="ml-10 helpful">
-            <i class="fas fa-star"></i>
-            <%= @num_of_stars %>
-          </span>
-        <% end %>
-      </small>
-    </h3>
-    <h3><%= @post.title %></h3>
-    <hr />
-    <p><%= sanitize @post.content %></p>
-    <br />
-    <h4 class="text-right"><small>Last updated: <%= @post.updated_at.localtime.to_formatted_s(:db) %></small></h4>
-  </div>
-  <%= render "comment_form", { comment: @comment, groupId: @group.id, postId: @post.id }  %>
-  <%= render "comment", { comments: @post.comments }  %>
+    </small>
+  </h5>
+  <h3><%= @post.title %></h3>
+  <hr />
+  <p><%= sanitize @post.content %></p>
+  <br />
+  <h6 class="text-right">
+    <small class="text-muted">Last updated: <%= @post.updated_at.localtime.to_formatted_s(:db) %></small>
+  </h6>
 </div>
+<%= render "comment_form", { comment: @comment, groupId: @group.id, postId: @post.id }  %>
+<%= render "comment", { comments: @post.comments }  %>

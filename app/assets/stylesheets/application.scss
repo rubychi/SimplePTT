@@ -14,7 +14,6 @@
  *= require_self
  *= require trix
  */
-@import "bootstrap-sprockets";
 @import "bootstrap";
 
 /*
@@ -40,11 +39,11 @@ $side-list: (
     @each $sk, $sv in $side-list {
       .#{$tk}#{$sk}-#{$i} {
         @if $sk == 'y' {
-          #{$tv}: #{$i}px 0;
+          #{$tv}: #{$i}px 0 !important;
         } @else if $sk == 'x' {
-          #{$tv}: 0 #{$i}px;
+          #{$tv}: 0 #{$i}px !important;
         } @else {
-          #{$tv}-#{$sv}: #{$i}px;
+          #{$tv}-#{$sv}: #{$i}px !important;
         }
       }
     }
@@ -53,11 +52,15 @@ $side-list: (
 }
 
 .content {
-  padding: 0 30px !important;
+  padding: 30px;
 
   &--border {
     border: 1px solid lightgray;
   }
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 /* 3rd party library */

@@ -9,8 +9,7 @@ require("@rails/activestorage").start()
 require("channels")
 require("trix")
 require("jquery")
-
-import 'bootstrap/dist/js/bootstrap';
+require("bootstrap")
 
 $(document).on('ready turbolinks:load', function() {
   $("#thumbs-up-btn").click(function() {

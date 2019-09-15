@@ -60,7 +60,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Custom gems
 gem 'pry-rails', group: :development
-gem 'bootstrap-sass'
+gem 'bootstrap', '~> 4.3.1'
 gem 'simple_form'
 gem 'devise'
 gem 'will_paginate'

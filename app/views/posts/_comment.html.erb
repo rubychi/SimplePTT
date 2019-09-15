@@ -1,7 +1,7 @@
 <% if comments.size != 0 %>
   <ul class="list-group mt-25">
     <% comments.each do |comment| %>
-      <li class="list-group-item comment">
+      <li class="list-group-item comment--border">
         <% if comment.like %>
           <i style="color: green" class="far fa-thumbs-up mr-10"></i>
         <% elsif comment.dislike %>
@@ -10,7 +10,7 @@
           <i class="fas fa-long-arrow-alt-right mr-10"></i>
         <% end %>
         <%= comment.user.email %>: <%= comment.content %>
-        <span class="pull-right" style="color: gray"><small><%= comment.created_at.localtime.to_formatted_s(:db) %></small></span>
+        <span class="float-right" style="color: gray"><small><%= comment.created_at.localtime.to_formatted_s(:db) %></small></span>
       </li>
     <% end %>
   </ul>
