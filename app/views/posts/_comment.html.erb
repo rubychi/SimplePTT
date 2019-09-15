@@ -1,6 +1,6 @@
 <% if comments.size != 0 %>
   <ul class="list-group mt-25">
-    <% comments.each do |comment| %>
+    <% comments.includes(:user).each do |comment| %>
       <li class="list-group-item comment-border">
         <% if comment.like %>
           <i style="color: green" class="far fa-thumbs-up mr-10"></i>

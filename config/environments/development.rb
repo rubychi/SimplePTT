@@ -1,5 +1,13 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.rails_logger = true
+    Bullet.add_footer = true
+    # 如有 false positive 請加 whitelist，例如：
+    # Bullet.add_whitelist :type => :counter_cache, :class_name => "Country", :association => :cities
+  end
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
