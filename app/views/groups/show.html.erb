@@ -1,69 +1,67 @@
-<div class="col-md-12">
-  <div class="group">
-    <span class="pull-right">
-      <% @is_member = current_user && current_user.member_of?(@group) %>
-      <% if false %>
-        <% if @is_member %>
-          <label class="label label-success">Member</label>
-        <% else %>
-          <label class="label label-warning">Not a member</label>
-        <% end %>
+<div class="group">
+  <span class="pull-right">
+    <% @is_member = current_user && current_user.member_of?(@group) %>
+    <% if false %>
+      <% if @is_member %>
+        <label class="label label-success">Member</label>
+      <% else %>
+        <label class="label label-warning">Not a member</label>
       <% end %>
-      <%= link_to("Post", new_group_post_path(@group), class: "btn btn-default")%>
-      <% if false %>
-        <% if @is_member %>
-          <%= link_to("Leave Board", leave_group_path(@group), method: :post, class: "btn btn-default") %>
-        <% else %>
-          <%= link_to("Join Board", join_group_path(@group), method: :post, class: "btn btn-default") %>
-        <% end %>
+    <% end %>
+    <%= link_to("Post", new_group_post_path(@group), class: "btn btn-default")%>
+    <% if false %>
+      <% if @is_member %>
+        <%= link_to("Leave Board", leave_group_path(@group), method: :post, class: "btn btn-default") %>
+      <% else %>
+        <%= link_to("Join Board", join_group_path(@group), method: :post, class: "btn btn-default") %>
       <% end %>
-      <% if current_user && current_user == @group.user %>
-        <%= link_to("Edit Board", edit_group_path(@group), class: "btn btn-primary")%>
-      <% end %>
-    </span>
-  </div>
-  <h2>Board <%= @group.title %></h2>
-  <h3 class="my-0 ml-5"><small><%= @group.description %></small></h3>
-  <br />
-  <table class="table">
-    <thead>
+    <% end %>
+    <% if current_user && current_user == @group.user %>
+      <%= link_to("Edit Board", edit_group_path(@group), class: "btn btn-primary")%>
+    <% end %>
+  </span>
+</div>
+<h2>Board <%= @group.title %></h2>
+<h3 class="my-0 ml-5"><small><%= @group.description %></small></h3>
+<br />
+<table class="table">
+  <thead>
+    <tr>
+      <td>#</td>
+      <td>Post</td>
+      <td>Content</td>
+      <td>Poster</td>
+      <td>Posted Time</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @posts.each_with_index do |post, index| %>
       <tr>
-        <td>#</td>
-        <td>Post</td>
-        <td>Content</td>
-        <td>Poster</td>
-        <td>Posted Time</td>
+        <td><%= index+1 %></td>
+        <td>
+          <%= link_to(post.title, group_post_path(post.group, post)) %>
+          <% @num_of_comments = post.comments.size %>
+          <% if @num_of_comments != 0 %>
+            <span class="ml-10 num-of-comments">
+              <%= @num_of_comments %>
+              <i class="far fa-comment"></i>
+            </span>
+          <% end %>
+        </td>
+        <td><%= render_post_content(post) %></td>
+        <td><%= post.user.email %></td>
+        <td><%= post.created_at.localtime.to_formatted_s(:db) %></td>
+        <td>
+          <% if current_user && (current_user == post.user || current_user == post.group.user) %>
+            <%= link_to("Edit", edit_group_post_path(post.group, post), class: "btn btn-sm btn-default")%>
+            <%= link_to("Delete", group_post_path(post.group, post),    class: "btn btn-sm btn-default", 
+                        method: :delete, data: { confirm: "Are you sure?" } )%>
+          <% end %>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <% @posts.each_with_index do |post, index| %>
-        <tr>
-          <td><%= index+1 %></td>
-          <td>
-            <%= link_to(post.title, group_post_path(post.group, post)) %>
-            <% @num_of_comments = post.comments.size %>
-            <% if @num_of_comments != 0 %>
-              <span class="ml-10 num-of-comments">
-                <%= @num_of_comments %>
-                <i class="far fa-comment"></i>
-              </span>
-            <% end %>
-          </td>
-          <td><%= render_post_content(post) %></td>
-          <td><%= post.user.email %></td>
-          <td><%= post.created_at.localtime.to_formatted_s(:db) %></td>
-          <td>
-            <% if current_user && (current_user == post.user || current_user == post.group.user) %>
-              <%= link_to("Edit", edit_group_post_path(post.group, post), class: "btn btn-sm btn-default")%>
-              <%= link_to("Delete", group_post_path(post.group, post),    class: "btn btn-sm btn-default", 
-                          method: :delete, data: { confirm: "Are you sure?" } )%>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <div class="text-center">
-    <%= will_paginate @posts %>
-  </div>
+    <% end %>
+  </tbody>
+</table>
+<div class="text-center">
+  <%= will_paginate @posts %>
 </div>
