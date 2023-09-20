@@ -1,0 +1,1 @@
+{"version":"0.1.0","name":"simple_ptt","dependencies":{"@rails/actioncable":{"version":"6.0.0"},"@rails/activestorage":{"version":"6.0.0"},"@rails/ujs":{"version":"6.0.0"},"@rails/webpacker":{"version":"4.0.7"},"bootstrap":{"version":"4.3.1"},"jquery":{"version":"3.4.1"},"popper.js":{"version":"1.15.0"},"trix":{"version":"1.2.0"},"turbolinks":{"version":"5.2.0"}}}
